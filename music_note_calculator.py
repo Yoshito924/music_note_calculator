@@ -20,33 +20,30 @@ dieresis_note_time = float(whole_note_time) / int(note_type)
 #符点部分の音価(ms)を求める式...[n分音符の音価×((2^d)-1)/(2^d)]
 dot_time = float(dieresis_note_time) * ((2 ** (int(dotted_note_type)) - 1) / (2 ** int(dotted_note_type))) 
 
-#★音価(ms)を求める式★...[(n分音符の音価＋符点部分の音価)÷連符(t)]
+#★この音符の音価(ms)を求める式★...[(n分音符の音価＋符点部分の音価)÷連符(t)]
 note_time = (float(dieresis_note_time) + float(dot_time)) / float(tuplet_type)
 
-#符点部分を除いた音価(ms)を求める式
-note_time_without_dot = float(note_time) - float(dot_time)
-
-#"分音符"の種類を求める式
+#"x分音符"の種類を求める式
 dieresis_note = float(whole_note_time)/float(note_time)
 
-#log2(X)の対数関数に分音符の音価を分音符で割ったものを代入したものの整数部分(小数部分は切り捨て)
+#log2(X)の対数関数に"x分音符"の値を代入したものの整数部分(このあと小数部分は切り捨てる)
 log_number = math.trunc(math.log2(float(dieresis_note)))
 
-#連符の比の調整に使う
+#連符の比の調整に使う...[2^{連符の分割数+(符点の数-連符の分割数)]
 Adjustment_number = 2 ** ((int(tuplet_type) + (int(dotted_note_type) - int(tuplet_type))))
 
-#連符を考える時、符尾・連桁の数とリンクした分音符の"数字"を求める式に必要
+#連符を考える時、符尾・連桁の数とリンクした"連符で分割する前の分音符の数字"を求める式
 ratio_number = (2 ** int(log_number))*(int(Adjustment_number))
 
-#連符の比の分音符の個数
+#連符の比の"連符で分割する前の分音符の個数"を求める式
 ratio = ((int(dieresis_note_time)+int(dot_time))/(int(whole_note_time)/(int(ratio_number)/(int(Adjustment_number)))))*(int(Adjustment_number))
 
-#符尾・連桁の数を求める
+#符尾・連桁の数とその根拠となる「(2の累乗)分音符」の種類
 flag_count = int(log_number) - 2
 flag_number = 2 ** int(log_number)
 flag_number_minusone = 2 ** int(log_number-1)
 
-#符点音符の連符を符点音符のみ表記に変換
+#符点音符の連符を符点音符のみ表記に変換する式[n×t×{1^(d-1)}]
 dotted_note = int(note_type)*int(tuplet_type)*(1^(int(dotted_note_type)-1))
 
 #-----------------以下出力のプログラム-----------------
@@ -61,9 +58,9 @@ sys.stdout.write("BPMが"+ str(input_bpm) + "のとき「")
 
 if int(dotted_note_type) == 1:
     sys.stdout.write("符点")
-elif int(note_type) == 2:
+elif int(dotted_note_type) == 2:
     sys.stdout.write("複符点")
-elif int(note_type) >= 3:
+elif int(dotted_note_type) >= 3:
     sys.stdout.write(str(dotted_note_type) + "重符点")
 else:
     sys.stdout.write("")
@@ -73,19 +70,19 @@ if int(note_type) == 1:
 elif int(note_type) >= 2:
     sys.stdout.write(str(note_type)  + "分音符")
 else:
-    sys.stdout.write("?")
+    sys.stdout.write("")
 
 if int(note_type) >= 2:
     sys.stdout.write("の" + str(note_type)  + "連符")
 else:
- sys.stdout.write("")
+    sys.stdout.write("")
 
 sys.stdout.write("」の音価は" + str(note_time) + "msです。\n")
 
 #/音価の表示----------------------------------------
 
 #音価についてのコメント
-if int(note_time) < 10 :
+if int(note_time) <= 10:
     print( "この音符の音価は10ms以下です。人間には知覚が難しいと思われます。\n" )
 elif int(note_time) == 1000:
     print( "この音符の音価は1000msです。秒針の速さと同じリズムですね。\n" )
