@@ -71,8 +71,8 @@ elif int(note_type) >= 2:
 else:
     sys.stdout.write("")
 
-if int(note_type) >= 2:
-    sys.stdout.write("の" + str(note_type)  + "連符")
+if int(tuplet_type) >= 2:
+    sys.stdout.write("の" + str(tuplet_type)  + "連符")
 else:
     sys.stdout.write("")
 
