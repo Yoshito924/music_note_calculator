@@ -109,7 +109,7 @@ else:
     sys.stdout.write("")
 
 #「符点音符の2の冪連符」を「符点音符」のみ表記にした場合
-if int(note_type) & (int(note_type) - 1) == 0 and int(tuplet_type) & (int(tuplet_type) - 1) == 0 and int(dotted_note_type) == 1:
+if int(note_type) & (int(note_type) - 1) == 0 and int(tuplet_type) & (int(tuplet_type) - 1) == 0 and int(dotted_note_type) == 1 and int(tuplet_type) >= 2:
     print("これは、このBPMでの「符点"+ str(dotted_note) + "分音符」と同じ音価です。\n")
 else:
     sys.stdout.write("")
@@ -134,3 +134,5 @@ print( "この音符はBPM" + str(int(one_minutes)/(float(note_time)*8/4)) + "�
 print( "この音符はBPM" + str(int(one_minutes)/(float(note_time)*16/4)) + "の「16分音符」と同じ音価を持ちます。" )
 print( "この音符はBPM" + str(int(one_minutes)/(float(note_time)*12/4)) + "の「1拍3連」と同じ音価を持ちます。" )
 print( "この音符はBPM" + str(int(one_minutes)/(float(note_time)*20/4)) + "の「1拍5連」と同じ音価を持ちます。" )
+
+  
