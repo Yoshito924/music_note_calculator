@@ -1,3 +1,4 @@
+
 import math
 import sys
 
@@ -19,7 +20,7 @@ common_beat_time = int(one_minutes) / float(input_bpm) #指定BPMでの基本的
 dieresis_note_time = float(whole_note_time) / int(note_type)
 
 #符点部分の音価(ms)を求める式...[n分音符の音価×((2^d)-1)/(2^d)]
-dot_time = float(dieresis_note_time) * ((2 ** (int(dotted_note_type)) - 1) / (2 ** int(dotted_note_type))) 
+dot_time = float(dieresis_note_time) * ((2 ** (int(dotted_note_type)) - 1) / (2 ** int(dotted_note_type)))
 
 #★この音符の音価(ms)を求める式★...[(n分音符の音価＋符点部分の音価)÷連符(t)]
 note_time = (float(dieresis_note_time) + float(dot_time)) / float(tuplet_type)
@@ -126,6 +127,7 @@ elif int(note_type) == 8 and int(tuplet_type) >=3 and int(dotted_note_type) == 0
 else:
     sys.stdout.write("")
 
+
 #・メトリックモジュレーションの提案
 print("------------------------------------------------------------------------------------------")
 print("・メトリックモジュレーションの提案")
@@ -135,4 +137,4 @@ print( "この音符はBPM" + str(int(one_minutes)/(float(note_time)*16/4)) + "�
 print( "この音符はBPM" + str(int(one_minutes)/(float(note_time)*12/4)) + "の「1拍3連」と同じ音価を持ちます。" )
 print( "この音符はBPM" + str(int(one_minutes)/(float(note_time)*20/4)) + "の「1拍5連」と同じ音価を持ちます。" )
 
-  
+input()
